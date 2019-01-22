@@ -1,0 +1,30 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteRule . %1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteRule ^(.*),(.*)$ $2.php?rewrite_params=$1&page_url=$2
+
+RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR] 
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR] 
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|%[0-9A-Z]{0,2}) [OR] 
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2}) 
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteRule ^(.*)$ index.php [F,L]
+
+
+RewriteCond %{HTTP_HOST} ^melsireta\.kz$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.melsireta\.kz$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteRule ^/?$ "http\:\/\/agora\.kz\/" [R=301,L]
+
