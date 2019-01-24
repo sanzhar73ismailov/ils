@@ -75,6 +75,7 @@ require_auth();
 		});
 
 		$("#addNew").click(function(){
+			$("#form")[0].reset();
 			$("#formArea").show(); 
 		});
 
@@ -124,6 +125,14 @@ require_auth();
 
 	
 </script>
+<style>
+	.table-wrapper-scroll-y {
+display: block;
+max-height: 640px;
+overflow-y: auto;
+-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -135,23 +144,21 @@ require_auth();
 	
 	<form action='' method='post' id="form">
 		<div class="form-group">
-			<label for="id">N:</label>
-			<input readonly class="form-control" type="text" name="id" id="id">
+			<input placeholder="N of announcement" readonly class="form-control" type="text" name="id" id="id">
 		</div>
 		<div class="form-group">
-			<label for="ann_date">Date:</label>
-			<input required class="form-control" placeholder="Enter date" type="date" name="ann_date" id="ann_date"/>
+			<input placeholder="Enter date of announcement" required class="form-control" placeholder="Enter date" type="date" name="ann_date" id="ann_date"/>
 		</div>
 		<div class="form-group">
-			<label for="ann_text">Text:</label>
-			<textarea required rows="10" class="form-control" placeholder="Enter text" name="ann_text" id="ann_text"/></textarea>
+			<textarea  placeholder="Enter text of announcement" required rows="5" class="form-control" placeholder="Enter text" name="ann_text" id="ann_text"/></textarea>
 		</div>
 		<div class="form-group form-check">
 			<label class="form-check-label">
 				<input class="form-check-input" type="checkbox" name="deleted" id="deleted"/>Deleted
 			</label>
+			<button id="submit" type="submit" class="btn btn-primary">Submit</button>
 		</div>
-		<button id="submit" type="submit" class="btn btn-primary">Submit</button>
+		
 
 	</form>
 
@@ -160,7 +167,8 @@ require_auth();
 <div id="msg"></div>
 <p/>
 	<!--<div><button id="clearTable">Clear Table</button> -->
-		<h2>List of announcements <button type="button" class="btn btn-primary" id="addNew">New</button></h2>
+		<h2>List of announcements <button type="button" class="btn btn-primary" id="addNew">+ New announcement</button></h2>
+		<div class="table-wrapper-scroll-y">
 		<table class='table' id='table'>
 			<thead>			
 				<tr>
@@ -174,6 +182,7 @@ require_auth();
 			<tbody id="tbodyId">
 			</tbody>
 		</table>
+	</div>
 	</div>
 </div>
 
