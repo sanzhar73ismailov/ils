@@ -1,9 +1,6 @@
 <?php
 
-define('HOST', 'localhost');
-define('DB', 'rest_news');
-define('USER', 'root');
-define('PASS', '');
+include_once "config.php";
 
 try {
 	header("Access-Control-Allow-Orgin: *");

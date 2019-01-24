@@ -218,10 +218,9 @@ new Paste('widget1', 'Scripts/Widgets/HTMLRegion', 'Scripts/Widgets/SharedResour
                 <p class="paragraph_style_4"><br /></p>
 				<!-- start  announcement 17 -->
    <?php
-define('HOST', 'localhost');
-define('DB', 'rest_news');
-define('USER', 'root');
-define('PASS', '');
+include_once "../api/config.php";
+
+define("NUMBER_ANNOUNC_TO_SHOW", 7);
 
 
 
@@ -248,12 +247,19 @@ $monthes = array(
 $news = getAllAnnouncements();
 
 for ($i = 0; $i <= count($news); $i++) {
+    if($i > (NUMBER_ANNOUNC_TO_SHOW - 1)) {
+       break;
+    }
+
     //echo "<div class='paragraph_style_5'>The number is: {$news[$i]['ann_date']} </div>";
     $new = $news[$i];
 
+    if ($new['deleted']) {
+      continue;
+    }
+
    $time = strtotime($new['ann_date']);
    $dateFormatForView = date('j ', $time) . $monthes[(date('n'))] . date(', Y г.', $time);
-
 
     echo <<<EOT
 <!-- start announcement -->
@@ -262,7 +268,7 @@ for ($i = 0; $i <= count($news); $i++) {
   <br/><br/>{$new['ann_text']}
   <br/><br/>
   <b>Языковые Курсы Исмаилова</b><br/>
-  <a href="http://melsireta.kz/ils/Nas_adres.html">Наш адрес и контакты</a>
+  <a style='text-decoration: underline;color: #07C;' href="http://melsireta.kz/ils/Nas_adres.html">Наш адрес и контакты </a>
   <br/>----------
 </div>
 <p/>
