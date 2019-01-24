@@ -21,7 +21,7 @@ require_auth();
 <html>
 <head>
 <title></title>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -97,6 +97,7 @@ require_auth();
 		  $.ajax({
 			  type: "POST",
 			  url:"api/index.php",
+			  //contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 			  data: data,
 			  success: function( result ) {
 					    console.log( "Data Loaded: " + JSON.stringify(result) );

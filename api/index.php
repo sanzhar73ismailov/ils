@@ -5,13 +5,10 @@ include_once "config.php";
 try {
 	header("Access-Control-Allow-Orgin: *");
     header("Access-Control-Allow-Methods: *");
-    header("Content-Type: application/json");
-	
-	 //$method = $_SERVER['REQUEST_METHOD'];
-	 //echo run($_SERVER['REQUEST_METHOD']);
+    header("Content-Type: application/json; charset=utf-8");
+
     echo run ($_REQUEST);
-    //$api = new NewsApi();
-    //echo $api->run();
+
 } catch (Exception $e) {
     echo json_encode(Array('error' => $e->getMessage()));
 }
@@ -49,7 +46,7 @@ function run($request){
 
    function response($data, $status = 500) {
         header("HTTP/1.1 " . $status . " " . requestStatus($status));
-        return json_encode($data);
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 	function requestStatus($code) {
         $status = array(
@@ -64,13 +61,13 @@ function run($request){
 
 function getAllAnnouncements() {
 	try {
-		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS);
-		// set the PDO error mode to exception
+		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$stmt = $conn->prepare("SELECT * FROM data ORDER BY id DESC"); 
 		$stmt->execute();
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-		return $stmt->fetchAll();
+		$stmt->setFetchMode(PDO::FETCH_ASSOC); 
+		$result = $stmt->fetchAll();
+		return $result;
 	} catch(PDOException $e) {
 		return "Connection failed: " . $e->getMessage();
 	}
@@ -78,11 +75,11 @@ function getAllAnnouncements() {
 
 function getAnnouncement($id) {
 	try {
-		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS);
+		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$stmt = $conn->prepare("SELECT * FROM data WHERE id={$id}"); 
 		$stmt->execute();
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+		$stmt->setFetchMode(PDO::FETCH_ASSOC); 
 		return $stmt->fetchAll()[0];
 	} catch(PDOException $e) {
 		return "Connection failed: " . $e->getMessage();
@@ -91,7 +88,7 @@ function getAnnouncement($id) {
 
 function createAnnouncement($request){
 	try {
-		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS);
+		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "INSERT INTO data (ann_date, ann_text, deleted) VALUES ('%s', '%s', '%s')";
 		$sql = sprintf($sql, $request['ann_date'], trim($request['ann_text']), $request['deleted']);
@@ -103,7 +100,7 @@ function createAnnouncement($request){
 }
 function updateAnnouncement($id, $request){
 	try {
-		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS);
+		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "UPDATE data SET ann_date='%s', ann_text='%s', deleted='%s' WHERE id='%s'";
 		$sql = sprintf($sql, $request['ann_date'], trim($request['ann_text']), $request['deleted'], $id);
@@ -115,7 +112,7 @@ function updateAnnouncement($id, $request){
 }
 function deleteAnnouncement($id){
 	try {
-		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS);
+		$conn = new PDO(sprintf("mysql:host=%s;dbname=%s", HOST, DB), USER, PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "DELETE FROM data WHERE id='{$id}'";
 		$conn->exec($sql);
