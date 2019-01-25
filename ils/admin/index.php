@@ -28,8 +28,9 @@ require_auth();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script>
+var restUrl = "rest.php";
 	function fillTable() {
-		$.getJSON("api?action=get&id=all", function(data){
+		$.getJSON(restUrl + "?action=get&id=all", function(data){
 	        //console.log("Data: " + data + "\nStatus: " + status);
 	        $.each( data, function( key, val ) {
 	        	var text = val.ann_text.replace(/\n/g, "<br />");
@@ -61,7 +62,7 @@ require_auth();
 		  //console.log("editbtn clicked");
 		  console.log(event.target.id);
 		  $("#formArea").show(); 
-		  $.getJSON("api?action=get&id="+event.target.id, function(data){
+		  $.getJSON(restUrl + "?action=get&id="+event.target.id, function(data){
 		  	  console.log( "Data Loaded: " + JSON.stringify(data) );
 			  $("#id").val(data.id);
 			  $("#ann_date").val(data.ann_date);
@@ -97,7 +98,7 @@ require_auth();
 		  };
 		  $.ajax({
 			  type: "POST",
-			  url:"api/index.php",
+			  url:restUrl,
 			  //contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 			  data: data,
 			  success: function( result ) {
