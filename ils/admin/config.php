@@ -1,6 +1,6 @@
 <?php
 // define('HOST', 'localhost');
-// define('DB', 'agorakz_ils');
+// define('DB', 'agorakz_ils_news');
 // define('USER', 'agorakz_ils_news_user');
 // define('PASS', '1qaz+2wsx');
 
