@@ -35,7 +35,7 @@
   <updated>2013-09-24T12:32:39.003+06:00</updated>
   <content>Репетиторство</content>
  </entry>
- <entry>
+<!--  <entry>
   <id>urn:iweb:3F63456D-59BB-4DDE-8D06-FF38D5797604</id>
   <title>ЕНТ</title>
   <title xmlns="urn:iweb:">ЕНТ</title>
@@ -43,7 +43,7 @@
   <link rel="alternate" href="ENT.html"/>
   <updated>2013-09-24T12:32:39.004+06:00</updated>
   <content>ЕНТ</content>
- </entry>
+ </entry> -->
  <entry>
   <id>urn:iweb:5D3E3E2D-5C4D-42E4-9F89-7AE3C9C1543C</id>
   <title>Наши программы</title>
@@ -134,4 +134,13 @@
   <updated>2013-09-24T12:32:39.014+06:00</updated>
   <content>We are Hiring!</content>
  </entry>
+<!--  <entry>
+  <id>urn:iweb:359B24A7-CEC7-4A54-81B1-C5C8DE703A5B</id>
+  <title>Шаблон</title>
+  <title xmlns="urn:iweb:">Шаблончик</title>
+  <in-navbar xmlns="urn:iweb:">359B24A7-CEC7-4A54-81B1-C5C8DE703A5B</in-navbar>
+  <link rel="alternate" href="template.html"/>
+  <updated>2013-09-24T12:32:39.014+06:00</updated>
+  <content>Шаблон</content>
+ </entry> -->
 </feed>
